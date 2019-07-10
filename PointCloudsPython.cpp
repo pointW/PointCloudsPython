@@ -8,6 +8,7 @@
 #include <pcl/filters/statistical_outlier_removal.h>
 #include <pcl/features/normal_3d_omp.h>
 #include <pcl/segmentation/sac_segmentation.h>
+#include <omp.h>
 
 using namespace std;
 using namespace pcl;
@@ -235,7 +236,7 @@ extern "C" int PclSegmentPlane(float* pointsIn, int nPointsIn, float distanceThr
   seg.setOptimizeCoefficients (true);
   seg.setModelType (SACMODEL_PLANE);
   seg.setMethodType (SAC_RANSAC);
-  seg.setDistanceThreshold (0.01);
+  seg.setDistanceThreshold (distanceThreshold);
   seg.setInputCloud (cloudIn);
   seg.segment (*inliers, *coefficients);
 
